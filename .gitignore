@@ -1,0 +1,34 @@
+# Database files
+*.db
+*.db-journal
+
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Virtual environments
+venv/
+env/
+ENV/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.log
+
+# Keep the data and charts
+!macro_data_api.json
+!macro_data_api.html
+!*.png

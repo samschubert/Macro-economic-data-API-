@@ -1,0 +1,94 @@
+COPPER/GOLD RATIO ANALYSIS - CHART REFERENCE
+============================================
+
+CURRENT DATA (Feb 2026):
+- Copper/Gold Ratio: 0.001262 (50-year lows)
+- Copper: $5.35 per pound
+- Gold: $5,082.70 per troy ounce
+- Bitcoin: $78,688.77
+
+============================================
+
+CHART 1: Cu/Au LEADS Manufacturing by 6 Months
+- Shows: Copper/Gold ratio (blue) vs Industrial Production (red, shifted 6mo forward)
+- Key Finding: 0.845 correlation when ISM is shifted forward 6 months
+- Pattern: Cu/Au bottoms predict manufacturing acceleration 3-6 months later
+- Current Signal: Cu/Au at 0.001262 (lowest in 50 years) suggests manufacturing surge coming Q2-Q3 2026
+
+============================================
+
+CHART 2: Cu/Au vs S&P 500 (Risk Appetite)
+- Shows: Both indexed to 100 (starting 2010)
+- Key Finding: Strong positive correlation - both move together
+- Pattern: When Cu/Au turns, equities follow
+- Current Signal: Cu/Au at lows while S&P recovering = catch-up rally likely
+
+============================================
+
+CHART 3: Cu/Au vs Bitcoin (Cycle Timing)
+- Shows: Cu/Au (blue) vs BTC price (orange, log scale)
+- Marked Cycle Peaks: Nov 2013, Dec 2017, Nov 2021
+- Key Finding: Cu/Au peaks preceded BTC cycle tops by 12-60 days in 2013, 2017, 2021
+- Current Signal: Cu/Au at LOWS (not peaks) = we're EARLY in cycle, not late
+- Implication: Months before next BTC top, altseason hasn't started
+
+============================================
+
+CHART 4: Liquidity Dashboard (4 Panels)
+Panel 1 - SOFR-DFF Spread (Repo Stress):
+  - Shows repo market stress over time
+  - Current: Low/normalizing (down from Sept 2025 spike)
+  - Signal: Repo stress easing
+
+Panel 2 - M2 Money Supply:
+  - Shows: $21.8 trillion and growing
+  - Pattern: Growing again after 2022-2023 contraction
+  - Signal: Liquidity expanding
+
+Panel 3 - Fed Balance Sheet:
+  - Shows: ~$7 trillion (down from $9T peak)
+  - Pattern: QT slowing down
+  - Signal: Fed pivot coming
+
+Panel 4 - High Yield Spreads:
+  - Shows: Corporate credit stress
+  - Current: Near historical lows
+  - Signal: Credit markets healthy, risk-on
+
+Overall: ALL liquidity indicators confirm easing conditions
+
+============================================
+
+CHART 5: Cu/Au vs Dollar Index (Inverse)
+- Shows: Cu/Au (blue) vs Trade-Weighted Dollar (brown, inverted axis)
+- Key Finding: Inverse correlation - they move opposite
+- Pattern: Weak dollar = strong Cu/Au = risk-on
+- Current Signal: Dollar down ~10% in 2025 + Cu/Au lows = dual risk-on signal
+- Implication: Dollar weakness adds fuel to risk rally
+
+============================================
+
+KEY STATISTICS TO USE:
+- 0.845 correlation (Cu/Au vs manufacturing with 6mo shift) - THE KILLER STAT
+- 0.518 correlation (Cu/Au vs manufacturing, no shift)
+- 50-year lows (current ratio vs historical)
+- 12-60 day lag (Cu/Au peaks to BTC cycle tops)
+- -38.6% below average (current vs 2012-2025 mean)
+
+============================================
+
+THE THESIS IN ONE PARAGRAPH:
+The copper/gold ratio at 50-year lows (0.001262) is a major risk-on signal that markets are missing. Historically, Cu/Au bottoms lead manufacturing acceleration by 6 months (0.845 correlation). All liquidity indicators confirm the turn: SOFR normalizing, M2 growing, Fed pivoting, credit spreads tight. Dollar weakness adds fuel. For crypto, Cu/Au peaks preceded BTC cycle tops in 2013/2017/2021 by 12-60 days - current lows mean we're EARLY in the cycle, not late. Expect ISM surge Q2-Q3 2026, followed by broad risk-on rally.
+
+============================================
+
+CHART FILES:
+1. thesis_chart1_copper_gold_leads_ism.png
+2. thesis_chart2_copper_gold_vs_sp500.png
+3. thesis_chart3_copper_gold_vs_bitcoin.png
+4. thesis_chart4_liquidity_dashboard.png
+5. thesis_chart5_copper_gold_vs_dollar.png
+
+Upload these 5 images to Claude along with this reference.
+
+============================================

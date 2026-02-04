@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Macro Database Dashboard - With Proper Units</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .header {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        }
+
+        .header h1 {
+            color: #2d3748;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .header .subtitle {
+            color: #718096;
+            font-size: 1.1em;
+            margin-bottom: 10px;
+        }
+
+        .units-info {
+            background: #f7fafc;
+            border-left: 4px solid #667eea;
+            padding: 15px;
+            margin-top: 15px;
+            border-radius: 5px;
+        }
+
+        .units-info strong {
+            color: #2d3748;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .units-info span {
+            color: #4a5568;
+            font-family: 'Courier New', monospace;
+            font-size: 0.95em;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .stat-card.copper {
+            background: linear-gradient(135deg, #CD7F32 0%, #8B4513 100%);
+        }
+
+        .stat-card.gold {
+            background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+        }
+
+        .stat-card h3 {
+            font-size: 0.9em;
+            opacity: 0.9;
+            margin-bottom: 10px;
+        }
+
+        .stat-card .value {
+            font-size: 2em;
+            font-weight: bold;
+        }
+
+        .stat-card .unit {
+            font-size: 0.7em;
+            opacity: 0.9;
+            margin-top: 5px;
+        }
+
+        .charts {
+            display: grid;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .chart-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        }
+
+        .chart-card h2 {
+            color: #2d3748;
+            margin-bottom: 20px;
+            font-size: 1.5em;
+        }
+
+        .chart-card img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .chart-card img:hover {
+            transform: scale(1.02);
+        }
+
+        .controls {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .last-updated {
+            color: #718096;
+            font-size: 0.9em;
+            margin-left: auto;
+        }
+
+        .alert {
+            background: #fff5f5;
+            border-left: 4px solid #f56565;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            color: #742a2a;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8em;
+            }
+
+            .stats {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📊 Macro Database Dashboard</h1>
+            <p class="subtitle">Real-time macroeconomic indicators with proper units</p>
+
+            <div class="units-info">
+                <strong>📐 Measurement Units:</strong>
+                <div style="margin-top: 8px;">
+                    <span>🟤 Copper: USD per pound (lb)</span><br>
+                    <span>🟡 Gold: USD per troy ounce (oz)</span><br>
+                    <span>📊 Ratio: Copper price ÷ Gold price (decimal)</span>
+                </div>
+            </div>
+
+            <div class="stats">
+                <div class="stat-card copper">
+                    <h3>Copper Price</h3>
+                    <div class="value" id="copper-price">$5.35</div>
+                    <div class="unit">per pound</div>
+                </div>
+                <div class="stat-card gold">
+                    <h3>Gold Price</h3>
+                    <div class="value" id="gold-price">$5,082</div>
+                    <div class="unit">per troy ounce</div>
+                </div>
+                <div class="stat-card">
+                    <h3>Current Ratio</h3>
+                    <div class="value" id="current-ratio">0.001262</div>
+                    <div class="unit">Cu/Au</div>
+                </div>
+                <div class="stat-card">
+                    <h3>Average Ratio</h3>
+                    <div class="value" id="avg-ratio">0.002589</div>
+                    <div class="unit">Historical</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="controls">
+            <button class="btn" onclick="refreshCharts()">🔄 Refresh Charts</button>
+            <button class="btn" onclick="window.location.reload()">↻ Reload Page</button>
+            <span class="last-updated" id="last-updated">Last updated: Never</span>
+        </div>
+
+        <div class="charts">
+            <div class="chart-card">
+                <h2>Copper/Gold Price Ratio (Proper Units)</h2>
+                <div id="chart1-container">
+                    <img id="chart1" src="copper_gold_ratio_PROPER.png" alt="Copper/Gold Ratio Chart"
+                         onerror="this.src='copper_gold_ratio.png'; this.alt='Using old chart'"
+                         onclick="openChart(this.src)">
+                </div>
+            </div>
+
+            <div class="chart-card">
+                <h2>Copper Price (USD per Pound)</h2>
+                <div id="chart2-container">
+                    <img id="chart2" src="copper_price_per_lb.png" alt="Copper Price Chart"
+                         onerror="this.parentElement.innerHTML='<p style=text-align:center;color:#999;padding:40px>Chart not yet generated. Run update_charts_with_units.py</p>'"
+                         onclick="openChart('copper_price_per_lb.png')">
+                </div>
+            </div>
+
+            <div class="chart-card">
+                <h2>Gold Price (USD per Troy Ounce)</h2>
+                <div id="chart3-container">
+                    <img id="chart3" src="gold_price_per_oz.png" alt="Gold Price Chart"
+                         onerror="this.parentElement.innerHTML='<p style=text-align:center;color:#999;padding:40px>Chart not yet generated. Run update_charts_with_units.py</p>'"
+                         onclick="openChart('gold_price_per_oz.png')">
+                </div>
+            </div>
+
+            <div class="chart-card">
+                <h2>Copper/Gold Ratio (2012-Present) 📅</h2>
+                <div id="chart4-container">
+                    <img id="chart4" src="copper_gold_ratio_2012_onwards.png" alt="Copper/Gold Ratio 2012+"
+                         onerror="this.parentElement.innerHTML='<p style=text-align:center;color:#999;padding:40px>Chart not available</p>'"
+                         onclick="openChart('copper_gold_ratio_2012_onwards.png')">
+                </div>
+            </div>
+
+            <div class="chart-card">
+                <h2>🏭 US Industrial Production: Manufacturing (2012+)</h2>
+                <div id="chart5-container">
+                    <img id="chart5" src="industrial_production_2012_onwards.png" alt="Industrial Production"
+                         onerror="this.parentElement.innerHTML='<p style=text-align:center;color:#999;padding:40px>Chart not available</p>'"
+                         onclick="openChart('industrial_production_2012_onwards.png')">
+                </div>
+            </div>
+
+            <div class="chart-card">
+                <h2>📊 Manufacturing Indicators Comparison (2012+)</h2>
+                <div id="chart6-container">
+                    <img id="chart6" src="manufacturing_indicators_2012_onwards.png" alt="Manufacturing Indicators"
+                         onerror="this.parentElement.innerHTML='<p style=text-align:center;color:#999;padding:40px>Chart not available</p>'"
+                         onclick="openChart('manufacturing_indicators_2012_onwards.png')">
+                </div>
+            </div>
+
+            <div class="chart-card">
+                <h2>🔗 Copper/Gold vs Manufacturing Production (2012+)</h2>
+                <div id="chart7-container">
+                    <img id="chart7" src="copper_manufacturing_comparison_2012_onwards.png" alt="Correlation Chart"
+                         onerror="this.parentElement.innerHTML='<p style=text-align:center;color:#999;padding:40px>Chart not available</p>'"
+                         onclick="openChart('copper_manufacturing_comparison_2012_onwards.png')">
+                </div>
+            </div>
+
+            <div class="chart-card" style="border: 3px solid #667eea;">
+                <h2>🚀 THESIS: Cu/Au LEADS Manufacturing by 6 Months</h2>
+                <div id="chart8-container">
+                    <img id="chart8" src="thesis_chart1_copper_gold_leads_ism.png" alt="Thesis Chart 1"
+                         onerror="this.parentElement.innerHTML='<p style=text-align:center;color:#999;padding:40px>Chart not available</p>'"
+                         onclick="openChart('thesis_chart1_copper_gold_leads_ism.png')">
+                </div>
+            </div>
+
+            <div class="chart-card" style="border: 3px solid #667eea;">
+                <h2>📈 THESIS: Cu/Au vs S&P 500 (Risk Appetite)</h2>
+                <div id="chart9-container">
+                    <img id="chart9" src="thesis_chart2_copper_gold_vs_sp500.png" alt="Thesis Chart 2"
+                         onerror="this.parentElement.innerHTML='<p style=text-align:center;color:#999;padding:40px>Chart not available</p>'"
+                         onclick="openChart('thesis_chart2_copper_gold_vs_sp500.png')">
+                </div>
+            </div>
+
+            <div class="chart-card" style="border: 3px solid #667eea;">
+                <h2>₿ THESIS: Cu/Au Peaks → BTC Cycle Tops (12-60 days)</h2>
+                <div id="chart10-container">
+                    <img id="chart10" src="thesis_chart3_copper_gold_vs_bitcoin.png" alt="Thesis Chart 3"
+                         onerror="this.parentElement.innerHTML='<p style=text-align:center;color:#999;padding:40px>Chart not available</p>'"
+                         onclick="openChart('thesis_chart3_copper_gold_vs_bitcoin.png')">
+                </div>
+            </div>
+
+            <div class="chart-card" style="border: 3px solid #667eea;">
+                <h2>💧 THESIS: Liquidity Dashboard (Multi-Panel)</h2>
+                <div id="chart11-container">
+                    <img id="chart11" src="thesis_chart4_liquidity_dashboard.png" alt="Thesis Chart 4"
+                         onerror="this.parentElement.innerHTML='<p style=text-align:center;color:#999;padding:40px>Chart not available</p>'"
+                         onclick="openChart('thesis_chart4_liquidity_dashboard.png')">
+                </div>
+            </div>
+
+            <div class="chart-card" style="border: 3px solid #667eea;">
+                <h2>💵 THESIS: Cu/Au vs Dollar Index (Inverse)</h2>
+                <div id="chart12-container">
+                    <img id="chart12" src="thesis_chart5_copper_gold_vs_dollar.png" alt="Thesis Chart 5"
+                         onerror="this.parentElement.innerHTML='<p style=text-align:center;color:#999;padding:40px>Chart not available</p>'"
+                         onclick="openChart('thesis_chart5_copper_gold_vs_dollar.png')">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function updateTimestamp() {
+            const now = new Date();
+            document.getElementById('last-updated').textContent =
+                `Last updated: ${now.toLocaleString()}`;
+        }
+
+        function refreshCharts() {
+            const timestamp = new Date().getTime();
+            const charts = [
+                {id: 'chart1', src: 'copper_gold_ratio_PROPER.png'},
+                {id: 'chart2', src: 'copper_price_per_lb.png'},
+                {id: 'chart3', src: 'gold_price_per_oz.png'},
+                {id: 'chart4', src: 'copper_gold_ratio_2012_onwards.png'},
+                {id: 'chart5', src: 'industrial_production_2012_onwards.png'},
+                {id: 'chart6', src: 'manufacturing_indicators_2012_onwards.png'},
+                {id: 'chart7', src: 'copper_manufacturing_comparison_2012_onwards.png'},
+                {id: 'chart8', src: 'thesis_chart1_copper_gold_leads_ism.png'},
+                {id: 'chart9', src: 'thesis_chart2_copper_gold_vs_sp500.png'},
+                {id: 'chart10', src: 'thesis_chart3_copper_gold_vs_bitcoin.png'},
+                {id: 'chart11', src: 'thesis_chart4_liquidity_dashboard.png'},
+                {id: 'chart12', src: 'thesis_chart5_copper_gold_vs_dollar.png'}
+            ];
+
+            charts.forEach(chart => {
+                const elem = document.getElementById(chart.id);
+                if (elem) elem.src = `${chart.src}?t=${timestamp}`;
+            });
+
+            updateTimestamp();
+        }
+
+        function openChart(filename) {
+            // Open chart in new window at full size
+            window.open(filename, '_blank');
+        }
+
+        // Update timestamp on load
+        updateTimestamp();
+
+        // Auto-refresh every 5 minutes
+        setInterval(() => {
+            refreshCharts();
+        }, 5 * 60 * 1000);
+    </script>
+</body>
+</html>
