@@ -21,6 +21,8 @@
 !fix_missing_data.py
 !analyze_cycle_tops.py
 !manual_cycle_analysis.py
+!regenerate_clean_charts.py
+!regenerate_remaining_charts.py
 !requirements.txt
 
 # Keep data and HTML
