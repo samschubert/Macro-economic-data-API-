@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Macro Economic Data - Copper/Gold Ratio Analysis</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #0f0f23;
+            color: #cccccc;
+            line-height: 1.6;
+        }
+        h1 { color: #00cc88; font-size: 2.5em; margin-bottom: 10px; }
+        h2 { color: #00aaff; margin-top: 40px; border-bottom: 2px solid #00aaff; padding-bottom: 10px; }
+        h3 { color: #ffaa00; }
+        .summary {
+            background: #1a1a2e;
+            padding: 25px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-left: 5px solid #00cc88;
+        }
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .stat-card {
+            background: #1a1a2e;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #00aaff;
+        }
+        .stat-card h4 {
+            margin: 0 0 10px 0;
+            color: #00aaff;
+            font-size: 0.9em;
+            text-transform: uppercase;
+        }
+        .stat-card .value {
+            font-size: 2em;
+            font-weight: bold;
+            color: #00cc88;
+        }
+        .stat-card .label {
+            font-size: 0.85em;
+            color: #888;
+            margin-top: 5px;
+        }
+        .chart-section {
+            margin: 40px 0;
+            background: #1a1a2e;
+            padding: 25px;
+            border-radius: 10px;
+        }
+        .chart-section img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin-top: 15px;
+            border: 1px solid #333;
+        }
+        .thesis-points {
+            background: #1a1a2e;
+            padding: 25px;
+            border-radius: 10px;
+            border-left: 5px solid #ffaa00;
+        }
+        .thesis-points li {
+            margin: 10px 0;
+            padding-left: 10px;
+        }
+        .data-access {
+            background: #162447;
+            padding: 25px;
+            border-radius: 10px;
+            margin: 30px 0;
+            border: 2px solid #00cc88;
+        }
+        .data-access code {
+            background: #0f0f23;
+            padding: 3px 8px;
+            border-radius: 4px;
+            color: #00cc88;
+            font-size: 0.95em;
+        }
+        a { color: #00aaff; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+        .highlight { color: #00cc88; font-weight: bold; }
+        .warning { color: #ff6b6b; font-weight: bold; }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: #1a1a2e;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #333;
+        }
+        th {
+            background: #162447;
+            color: #00aaff;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>📊 Macro Economic Data API</h1>
+    <p style="font-size: 1.2em; color: #888;">Live database for copper/gold ratio analysis and macroeconomic indicators</p>
+
+    <div class="data-access">
+        <h3>🔗 Access Data Programmatically</h3>
+        <p>JSON API Endpoint: <code>macro_data_api.json</code></p>
+        <p>For Claude or other tools, use this URL:</p>
+        <p><code>https://samschubert.github.io/Macro-economic-data-API-/macro_data_api.json</code></p>
+        <p style="margin-top: 15px; font-size: 0.95em; color: #888;">
+            Last updated: <span id="last-updated">Loading...</span>
+        </p>
+    </div>
+
+    <div class="summary">
+        <h2>🎯 Key Thesis</h2>
+        <p style="font-size: 1.15em;">
+            The <span class="highlight">copper/gold ratio at 50-year lows (0.001262)</span> is a major risk-on signal
+            that historically <span class="highlight">leads manufacturing acceleration by 6 months</span> with a
+            <span class="highlight">0.845 correlation</span>.
+        </p>
+    </div>
+
+    <h2>📈 Current Key Values</h2>
+    <div class="stat-grid" id="current-stats">
+        <div class="stat-card">
+            <h4>Copper/Gold Ratio</h4>
+            <div class="value" id="ratio-value">0.001262</div>
+            <div class="label">50-year lows</div>
+        </div>
+        <div class="stat-card">
+            <h4>Copper Price</h4>
+            <div class="value" id="copper-value">$5.35</div>
+            <div class="label">USD per pound</div>
+        </div>
+        <div class="stat-card">
+            <h4>Gold Price</h4>
+            <div class="value" id="gold-value">$5,082</div>
+            <div class="label">USD per troy ounce</div>
+        </div>
+        <div class="stat-card">
+            <h4>Bitcoin Price</h4>
+            <div class="value" id="btc-value">$78,688</div>
+            <div class="label">Current price</div>
+        </div>
+    </div>
+
+    <div class="thesis-points">
+        <h2>💡 Key Insights</h2>
+        <ul>
+            <li><span class="highlight">0.845 correlation</span> - Cu/Au leads manufacturing by 6 months (forward-shifted)</li>
+            <li><span class="highlight">Historical precedent</span> - Cu/Au peaks preceded BTC cycle tops by 12-60 days (2013, 2017, 2021)</li>
+            <li><span class="highlight">Current signal</span> - Cu/Au at lows suggests we're EARLY in risk cycle, not late</li>
+            <li><span class="highlight">Liquidity turning</span> - SOFR normalizing, M2 growing, Fed balance sheet stabilizing</li>
+            <li><span class="highlight">Dollar weakness</span> - DXY down ~10% in 2025, adding fuel to risk-on trade</li>
+        </ul>
+    </div>
+
+    <h2>📊 Analysis Charts</h2>
+
+    <div class="chart-section">
+        <h3>🚀 Chart 1: Cu/Au Leads Manufacturing by 6 Months</h3>
+        <p><strong>Key Finding:</strong> 0.845 correlation when ISM is shifted forward 6 months</p>
+        <p>This chart shows the copper/gold ratio (blue) versus Industrial Production (red, shifted 6 months forward).
+           The tight correlation demonstrates that Cu/Au bottoms predict manufacturing acceleration 3-6 months later.</p>
+        <img src="thesis_chart1_copper_gold_leads_ism.png" alt="Cu/Au leads manufacturing by 6 months">
+    </div>
+
+    <div class="chart-section">
+        <h3>📈 Chart 2: Cu/Au vs S&P 500 (Risk Appetite)</h3>
+        <p><strong>Key Finding:</strong> Strong positive correlation - both move together</p>
+        <p>Both indexed to 100 (starting 2010). When Cu/Au turns, equities follow. Current Cu/Au at lows while
+           S&P recovering suggests catch-up rally likely.</p>
+        <img src="thesis_chart2_copper_gold_vs_sp500.png" alt="Cu/Au vs S&P 500">
+    </div>
+
+    <div class="chart-section">
+        <h3>₿ Chart 3: Cu/Au vs Bitcoin (Cycle Timing)</h3>
+        <p><strong>Key Finding:</strong> Cu/Au peaks preceded BTC cycle tops by 12-60 days</p>
+        <p>Cu/Au (blue) vs BTC price (orange, log scale) with marked cycle peaks: Nov 2013, Dec 2017, Nov 2021.
+           Current Cu/Au at LOWS (not peaks) = we're EARLY in cycle, not late.</p>
+        <img src="thesis_chart3_copper_gold_vs_bitcoin.png" alt="Cu/Au vs Bitcoin cycles">
+    </div>
+
+    <div class="chart-section">
+        <h3>💧 Chart 4: Liquidity Dashboard</h3>
+        <p><strong>Key Finding:</strong> All liquidity indicators turning positive</p>
+        <p><strong>4 Panels:</strong></p>
+        <ul>
+            <li><strong>SOFR-DFF Spread:</strong> Repo stress easing (down from Sept 2025 spike)</li>
+            <li><strong>M2 Money Supply:</strong> $21.8T and growing</li>
+            <li><strong>Fed Balance Sheet:</strong> ~$7T (QT slowing)</li>
+            <li><strong>High Yield Spreads:</strong> Near historical lows (credit markets healthy)</li>
+        </ul>
+        <img src="thesis_chart4_liquidity_dashboard.png" alt="Liquidity dashboard">
+    </div>
+
+    <div class="chart-section">
+        <h3>💵 Chart 5: Cu/Au vs Dollar Index (Inverse Relationship)</h3>
+        <p><strong>Key Finding:</strong> Inverse correlation - weak dollar = strong Cu/Au = risk-on</p>
+        <p>Cu/Au (blue) vs Trade-Weighted Dollar (brown, inverted axis). Dollar down ~10% in 2025 + Cu/Au lows =
+           dual risk-on signal. Dollar weakness adds fuel to risk rally.</p>
+        <img src="thesis_chart5_copper_gold_vs_dollar.png" alt="Cu/Au vs Dollar">
+    </div>
+
+    <h2>📊 Available Indicators (39 Total)</h2>
+    <div style="background: #1a1a2e; padding: 20px; border-radius: 10px;">
+        <div id="indicators-list">Loading indicators...</div>
+    </div>
+
+    <h2>🔗 Additional Resources</h2>
+    <div style="background: #1a1a2e; padding: 25px; border-radius: 10px;">
+        <ul style="font-size: 1.1em;">
+            <li><a href="macro_dashboard.html">Interactive Dashboard</a> - All charts with auto-refresh</li>
+            <li><a href="macro_data_api.json">Raw JSON Data</a> - Complete dataset</li>
+            <li><a href="https://github.com/samschubert/Macro-economic-data-API-">GitHub Repository</a> - Source code and updates</li>
+        </ul>
+    </div>
+
+    <div style="margin-top: 40px; padding: 20px; background: #1a1a2e; border-radius: 10px; border-left: 5px solid #00cc88;">
+        <h3>📖 Data Sources</h3>
+        <p>All economic data sourced from:</p>
+        <ul>
+            <li><strong>Federal Reserve Economic Data (FRED)</strong> - Economic indicators</li>
+            <li><strong>Yahoo Finance</strong> - Bitcoin and gold prices</li>
+        </ul>
+        <p style="margin-top: 15px; color: #888; font-size: 0.9em;">
+            Data is refreshed manually. Check the JSON file's <code>last_updated</code> field for timestamp.
+        </p>
+    </div>
+
+    <script>
+        // Fetch and display data from JSON
+        fetch('macro_data_api.json')
+            .then(r => r.json())
+            .then(data => {
+                // Update last updated
+                document.getElementById('last-updated').textContent =
+                    new Date(data.last_updated).toLocaleString();
+
+                // Update current values if available
+                if (data.current_values) {
+                    if (data.current_values.copper_gold_ratio_proper) {
+                        document.getElementById('ratio-value').textContent =
+                            data.current_values.copper_gold_ratio_proper.value.toFixed(6);
+                    }
+                    if (data.current_values.copper_price_usd_lb) {
+                        document.getElementById('copper-value').textContent =
+                            '$' + data.current_values.copper_price_usd_lb.value.toFixed(2);
+                    }
+                    if (data.current_values.gold_price_usd_oz) {
+                        document.getElementById('gold-value').textContent =
+                            '$' + data.current_values.gold_price_usd_oz.value.toLocaleString();
+                    }
+                    if (data.current_values.bitcoin_price) {
+                        document.getElementById('btc-value').textContent =
+                            '$' + data.current_values.bitcoin_price.value.toLocaleString(undefined, {maximumFractionDigits: 0});
+                    }
+                }
+
+                // List indicators
+                if (data.indicators) {
+                    const indicators = Object.keys(data.indicators).sort();
+                    const indicatorsList = document.getElementById('indicators-list');
+                    indicatorsList.innerHTML = '<p style="margin-bottom: 15px;"><strong>' +
+                        indicators.length + ' indicators available:</strong></p>' +
+                        '<div style="columns: 2; column-gap: 20px;">' +
+                        indicators.map(ind => '<div style="margin: 5px 0;">• ' + ind + '</div>').join('') +
+                        '</div>';
+                }
+            })
+            .catch(e => {
+                console.error('Error loading data:', e);
+                document.getElementById('last-updated').textContent = 'Error loading data';
+            });
+    </script>
+</body>
+</html>
