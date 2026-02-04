@@ -19,6 +19,8 @@
 !add_realvision_data.py
 !create_realvision_charts.py
 !fix_missing_data.py
+!analyze_cycle_tops.py
+!manual_cycle_analysis.py
 !requirements.txt
 
 # Keep data and HTML
