@@ -1,34 +1,33 @@
-# Database files
-*.db
+# Ignore everything by default (we're in home directory)
+/*
+
+# But keep these macro project files
+!.gitignore
+!README.md
+!GITHUB_SETUP.md
+!ARTICLE_BRIEF.md
+!CHART_REFERENCE.txt
+!HOW_TO_USE_WITH_CLAUDE.md
+
+# Keep Python scripts
+!macro_database.py
+!export_data_api.py
+!regenerate_all_charts.py
+!create_thesis_charts.py
+!requirements.txt
+
+# Keep data and HTML
+!macro_data_api.json
+!macro_data_api.html
+!macro_dashboard.html
+
+# Keep all charts
+!*.png
+
+# Database files (exclude)
+macro_data.db
 *.db-journal
 
 # Python cache
 __pycache__/
-*.py[cod]
-*$py.class
-*.so
-.Python
-
-# Virtual environments
-venv/
-env/
-ENV/
-
-# IDE
-.vscode/
-.idea/
-*.swp
-*.swo
-
-# OS files
-.DS_Store
-Thumbs.db
-
-# Temporary files
-*.tmp
-*.log
-
-# Keep the data and charts
-!macro_data_api.json
-!macro_data_api.html
-!*.png
+*.pyc
