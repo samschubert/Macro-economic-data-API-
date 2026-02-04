@@ -14,6 +14,11 @@
 !export_data_api.py
 !regenerate_all_charts.py
 !create_thesis_charts.py
+!create_article_charts.py
+!add_article_data.py
+!add_realvision_data.py
+!create_realvision_charts.py
+!fix_missing_data.py
 !requirements.txt
 
 # Keep data and HTML
